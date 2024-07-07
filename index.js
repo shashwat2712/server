@@ -10,7 +10,7 @@ const productRouter = require('./routes/product');
 const userRouter = require('./routes/user');
 
 //INIT
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.Port || 8000;
 const app = express();
 const DB = process.env.DB;
 

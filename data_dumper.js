@@ -7,9 +7,9 @@ const { Product } = require("D:/shashwat sai vyas/AndroidStudioProjects/amazon_c
 // Define the product schema
 
 
-const PORT = 8000;
+const PORT = process.env.Port;
 const app = express();
-const DB = "mongodb+srv://shashwatsaivyas:9827591825a@cluster0.ecndkbx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const DB = process.env.DB;
 
 mongoose.connect(DB).then(() => {
     console.log('Connection Successful')
