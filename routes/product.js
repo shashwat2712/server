@@ -35,7 +35,7 @@ productRouter.get('/api/products/search/:name',auth ,async(req,res) =>{
 productRouter.get('/api/deal-of-day',auth,async(req,res) =>{
     try {
         let topTrendingProduct = await topTrending.find({});
-        res.json(topTrendingProduct[0]);
+        res.json(topTrendingProduct[0].product);
 
     } catch (error) {
         res.status(500).json({error : e.message});
