@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-const {productSchema} = require('./product')
+const { productSchema } = require('./product'); // Ensure this is the correct path
 
-const topTrendingSchema = mongoose.Schema({
-    avgRating : {
-        required : true,
-        type : Number
+const topTrendingSchema = new mongoose.Schema({
+    avgRating: {
+        required: true,
+        type: Number
     },
-    product : {
-        type : productSchema,
-        required : true
+    product: {
+        type: productSchema,
+        required: true
     }
 });
-const topTrending = mongoose.model('TopTrending',topTrendingSchema)
-module.exports = topTrending;
+
+const TopTrending = mongoose.model('toptrending', topTrendingSchema);
+module.exports = TopTrending;

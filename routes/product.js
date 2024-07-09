@@ -3,7 +3,7 @@ const productRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Product } = require("../models/product");
 const e = require("express");
-const topTrending = require("../models/top_trending")
+const TopTrending = require('../models/top_trending');
 
 
 //api/products?category = Essential
@@ -32,15 +32,18 @@ productRouter.get('/api/products/search/:name',auth ,async(req,res) =>{
         res.status(500).json({error : error.message});
     }
 });
-productRouter.get('/api/deal-of-day',auth,async(req,res) =>{
+productRouter.get('/api/deal-of-day', auth, async (req, res) => {
     try {
-        let topTrendingProduct = await topTrending.find({});
-        res.json(topTrendingProduct[0].product);
-
+        const topTrendingProduct = await TopTrending.find({});
+        if (topTrendingProduct.length > 0) {
+            res.json(topTrendingProduct[0].product);
+        } else {
+            res.status(404).json({ error: 'No top trending product found' });
+        }
     } catch (error) {
-        res.status(500).json({error : e.message});
+        res.status(500).json({ error: error.message });
     }
-})
+});
 productRouter.get('/api/products/search/:name',auth ,async(req,res) =>{
     try {
         console.log(req.params.name);
