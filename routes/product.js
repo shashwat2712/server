@@ -3,6 +3,7 @@ const productRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Product } = require("../models/product");
 const e = require("express");
+const topTrending = require("./models/top_trending")
 
 
 //api/products?category = Essential
@@ -33,28 +34,8 @@ productRouter.get('/api/products/search/:name',auth ,async(req,res) =>{
 });
 productRouter.get('/api/deal-of-day',auth,async(req,res) =>{
     try {
-        let products = await Product.find({});
-        // console.log(products)
-        products = products.sort((a, b) => {
-            let aSum = 0;
-            let bSum = 0;
-        
-            // Sum the ratings for product 'a'
-            for (let i = 0; i < a.ratings.length; i++) {
-                aSum += a.ratings[i].rating;
-            }
-        
-            // Sum the ratings for product 'b'
-            for (let i = 0; i < b.ratings.length; i++) {
-                bSum += b.ratings[i].rating;
-            }
-        
-            // Sort in descending order based on the sum of ratings
-            return bSum - aSum;
-        });
-        
-        // console.log(products[0])
-        res.json(products[0]);
+        let topTrendingProduct = await topTrending.find({});
+        res.json(topTrendingProduct[0]);
 
     } catch (error) {
         res.status(500).json({error : e.message});
