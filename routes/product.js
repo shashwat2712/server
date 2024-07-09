@@ -3,7 +3,7 @@ const productRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Product } = require("../models/product");
 const e = require("express");
-const topTrending = require("./models/top_trending")
+const topTrending = require("../models/top_trending")
 
 
 //api/products?category = Essential
