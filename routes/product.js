@@ -22,10 +22,14 @@ productRouter.get('/api/products',auth ,async(req,res) =>{
 //put ':' to access
 productRouter.get('/api/products/search/:name',auth ,async(req,res) =>{
     try {
+        const page = parseInt(req.query.page) || 0;
+        const pageSize = parseInt(req.query.pageSize) || 10;
         console.log(req.params.name);
         const products = await Product.find({
-            name : {$regex : req.params.name,$options : "i"},
-        }).limit(10);
+            name : {$regex : req.params.name,$options : "i"}, // Case-insensitive search
+        })
+        .skip(page*pageSize)
+        .limit(pageSize);
         res.json(products);
         console.log(products);
     } catch (error) {
