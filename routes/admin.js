@@ -27,7 +27,11 @@ adminRouter.post('/admin/add-product',admin,async(req,res) =>{
 //get all your products
 adminRouter.get('/admin/get-products',admin ,async(req,res) =>{
     try {
-        const products = await Product.find({});
+        const page = parseInt(req.query.page) || 0;
+        const pageSize = parseInt(req.query.pageSize) || 10;
+        const products = await Product.find({})
+        .skip(page*pageSize)
+        .limit(pageSize);
         res.json(products);
         console.log('fetching fetching');
     } catch (error) {
